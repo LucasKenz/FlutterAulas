@@ -18,6 +18,15 @@ class HomePage extends StatelessWidget {
               onTap: () {
                 showAboutDialog(
                   context: context,
+                  builder: (contexxt){
+                    return showAboutDialog(
+                      children[
+                        Text("texto1"),
+                        Text("Texto2"),
+                        Text("texto3"),
+                      ],
+                    ),
+                  }
                 );
               },
               child: const Align(
@@ -33,7 +42,7 @@ class HomePage extends StatelessWidget {
             ),
             const Spacer(),
             const Text('Qualquer texto'),
-          ],
+          ],//showdialog
         ),
       ),
     );
