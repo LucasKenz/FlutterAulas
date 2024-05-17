@@ -28,21 +28,34 @@ class _HomePageState extends State<HomePage> {
             TextField(
               controller: controller,
             ),
+            const SizedBox(height: 10.0), // Add spacing
+            const SizedBox(
+              width: 250,
+              child: TextField(
+                obscureText: false,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Digite o nome do pokemon',
+                ),
+              ),
+            ),
             ElevatedButton(
               onPressed: () async {
                 setState(() {
                   isLoading = true; // Show loading indicator
                 });
+
                 try {
                   Dio dio = Dio();
                   Response response = await dio.get(
                       'https://pokeapi.co/api/v2/pokemon/${controller.text}');
-                      // navegação -> PokemonPage
+
                   setState(() {
-                    nomeDoPokemon = response.data['name'];
+                    nomeDoPokemon = response.data != null ? response.data['name'] : '';
                     isLoading = false; // Hide loading indicator
                   });
-                  print(response.data['types'][0]['type']['name']);
+
+                  print(response.data != null ? response.data['types'][0]['type']['name'] : '');
                 } catch (error) {
                   // Handle error (e.g., display error message)
                   print(error);
